@@ -1,0 +1,25 @@
+policies:
+  - identity: "spiffe://customer-a/prod/payment-agent"
+    allow:
+      - method: POST
+        path: "/payments"
+      - method: GET
+        path: "/payments/*"
+
+  - identity: "spiffe://customer-a/prod/reporting-agent"
+    allow:
+      - method: GET
+        path: "/reports/*"
+
+  - identity: "*"
+    allow:
+      - method: GET
+        path: "/health"
+      - method: GET
+        path: "/ready"
+      - method: GET
+        path: "/dashboard"
+      - method: GET
+        path: "/ui"
+      - method: GET
+        path: "/api/dashboard-summary"

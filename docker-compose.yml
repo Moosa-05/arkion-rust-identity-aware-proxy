@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  identity-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: arkion-identity-proxy
+    ports:
+      - "8443:8443"
+    environment:
+      - ARKION_PROXY_HOST=0.0.0.0
+      - ARKION_PROXY_PORT=8443
+      - ARKION_UPSTREAM_URL=http://backend:8080
+      - ARKION_SERVER_CERT_PATH=/app/certs/server.crt
+      - ARKION_SERVER_KEY_PATH=/app/certs/server.key
+      - ARKION_CLIENT_CA_CERT_PATH=/app/certs/ca.crt
+      - ARKION_POLICY_PATH=/app/config/policy.yaml
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./config:/app/config:ro
+    restart: unless-stopped
